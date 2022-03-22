@@ -10,12 +10,7 @@ function App() {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [editable, setEditable] = useState(false);
-  const [btnText, setBtnText] = useState('Edit');
-  const [alpha, setAlpha] = useState('')
-
-  const itemNameRef = useRef();
-  const itemValRef = useRef();
-
+  
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_ITEMS));
     if (storedItems) setItems(storedItems);
@@ -44,7 +39,7 @@ function App() {
   return (
     <div className={'container'}>
       <button onClick={clickClearFields}>Clear Fields</button>
-      <ItemList items={items} setItems={setItems} total={total} setTotal={setTotal}/>
+      <ItemList items={items} setItems={setItems} total={total} setTotal={setTotal} editable={editable} setEditable={setEditable}/>
       <div>The total for {items.length} items is: ${total}</div>
       <button onClick={clickClearFields}>Clear Fields</button>
     </div>

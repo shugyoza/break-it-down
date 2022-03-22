@@ -21,6 +21,7 @@ export default function ItemAdd({setItems, setTotal}) {
 
     return (
     <React.Fragment>
+        <td></td>
         <td><input id='detail' ref={itemNameRef} type='text' placeholder='detail' /></td>
         <td><input id='value' ref={itemValRef} type='text' placeholder='$ value'/></td>
         <button onClick={clickAddItem}>Add</button>

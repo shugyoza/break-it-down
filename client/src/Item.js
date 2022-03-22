@@ -1,33 +1,37 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 
-export default function Item({item, idx, items, setItems, total, setTotal}) {
-    const itemNameRef = useRef();
-    const itemValRef = useRef();
-    const itemRef = useRef();
+export default function Item({item, idx, items, setItems, total, setTotal, editable, setEditable}) {
+    const [btnText, setBtnText] = useState('Edit');
+    const [alpha, setAlpha] = useState('')
 
-    // const onEdit = () => {
-    //     const text = editable ? 'Edit' : 'Update';
-    //     setBtnText(text);
-    // }
+    const inputNameRef = useRef();
+    const inputValRef = useRef();
 
-    function editName(e) {
-        console.log(e.target.value);
-        console.log(item);
-        return (
-            <input type='text'/>
-        )
+    const onEdit = () => {
+        const text = editable ? 'Edit' : 'Update';
+        setBtnText(text);
     }
 
-    function editVal(e) {
-
+    const editNameMode = (e) => {
+        e.stopPropagation();
+        setEditable(!editable);
+        setAlpha(e.target.value);
+        return;
     }
 
-    function saveEditName(e) {
-
+    const editValMode = (e) => {
+        e.stopPropagation();
+        setEditable(!editable);
+        setAlpha(e.target.value);
+        return;
     }
 
-    function saveEditVal(e) {
+    function edit(e) {
+        setAlpha(e.target.value)
+    }
 
+    const save = (e) => {
+        console.log(e.target)
     }
 
     function deleteItem(e) {
@@ -47,8 +51,10 @@ export default function Item({item, idx, items, setItems, total, setTotal}) {
 
     return (
         <React.Fragment>
-            <td onClick={editName} ref={itemNameRef}>{item.name}</td>
-            <td onClick={editVal} ref={itemValRef}>{item.val}</td>
+            <td>{idx + 1}</td>
+            {editable ? <td ref={inputNameRef}><input id={`${item.id}-name`} type='text' onChange={edit} /></td> : <td id={item.id} onClick={editNameMode}>{item.name}</td>}
+            {editable ? <td ref={inputValRef}><input id={`${item.id}-val`}type='text' onChange={edit} /></td> : <td id={item.id} onClick={editValMode}>{item.val}</td>}
+            <button onClick={save}>Save</button>
             <button id={item.id} onClick={deleteItem}>Delete</button>
         </React.Fragment>
     )
