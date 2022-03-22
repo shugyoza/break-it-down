@@ -1,30 +1,55 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useRef} from 'react';
 
-export default function Item({item}) {
+export default function Item({item, idx, items, setItems, total, setTotal}) {
     const itemNameRef = useRef();
     const itemValRef = useRef();
     const itemRef = useRef();
 
-    function changeName(e) {
-        const name = itemNameRef.current.value
-        if (name === '') return;
-        return item.name = name;
+    // const onEdit = () => {
+    //     const text = editable ? 'Edit' : 'Update';
+    //     setBtnText(text);
+    // }
+
+    function editName(e) {
+        console.log(e.target.value);
+        console.log(item);
+        return (
+            <input type='text'/>
+        )
     }
 
-    function changeVal(e) {
+    function editVal(e) {
 
     }
 
-    function deleteItem() {
+    function saveEditName(e) {
 
+    }
+
+    function saveEditVal(e) {
+
+    }
+
+    function deleteItem(e) {
+        console.log(e.target.id, items)
+        let newItems = [];
+        let newTotal;
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].id === e.target.id) {
+                newTotal = total - items[i].val;
+                setTotal(newTotal);
+            } else if (items[i].id !== e.target.id) {
+                newItems.push(items[i]);
+            }
+        }
+        setItems(newItems);
     }
 
     return (
-        <tr key={item.id} ref={itemRef}>
-            <td>{item.id}</td>
-            <td><input onChange={changeName} value={item.name} ref={itemNameRef} type='text'/></td>
-            <td><input onChange={changeVal} value={item.val} ref={itemValRef} type='text' /></td>
-            <button onClick={deleteItem}>Delete</button>
-        </tr>
+        <React.Fragment>
+            <td onClick={editName} ref={itemNameRef}>{item.name}</td>
+            <td onClick={editVal} ref={itemValRef}>{item.val}</td>
+            <button id={item.id} onClick={deleteItem}>Delete</button>
+        </React.Fragment>
     )
 }
