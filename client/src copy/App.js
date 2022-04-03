@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
+import ItemAdd from './ItemAdd';
 import ItemList from './ItemList';
 import './App.css';
 
@@ -31,28 +32,16 @@ function App() {
   function clickClearFields() {
     const newItems = [];
     const newTotal = 0;
+    const newInputs = [];
     setItems(newItems);
     setTotal(newTotal);
+    setInputs(newInputs);
   }
-
-  function deleteItem(e) {
-    let newItems = [];
-    let newTotal;
-    for (let i = 0; i < items.length; i++) {
-        if (items[i].id === e.target.id) {
-            newTotal = total - items[i].val;
-            setTotal(newTotal);
-        } else if (items[i].id !== e.target.id) {
-            newItems.push(items[i]);
-        }
-    }
-    setItems(newItems);
-}
 
   return (
     <div className={'container'}>
       <button onClick={clickClearFields}>Clear Fields</button>
-      <ItemList items={items} setItems={setItems} total={total} setTotal={setTotal} inputs={inputs} setInputs={setInputs} deleteItem={deleteItem}/>
+      <ItemList items={items} setItems={setItems} total={total} setTotal={setTotal} inputs={inputs} setInputs={setInputs}/>
       <div>The total for {items.length} items is: ${total}</div>
       <button onClick={clickClearFields}>Clear Fields</button>
     </div>

@@ -20,7 +20,7 @@ export default function ItemList(props) {
                 {props.items.map((item, idx) => {
                     return (
                         <tr key={item.id}>
-                            <Item idx={idx} item={item} items={props.items} setItems={props.setItems} total={props.total} setTotal={props.setTotal} input={props.inputs[idx]} setInputs={props.setInputs} deleteItem={props.deleteItem} />
+                            <Item idx={idx} item={item} items={props.items} setItems={props.setItems} total={props.total} setTotal={props.setTotal} input={props.inputs[idx]} setInputs={props.setInputs} />
                         </tr>
                     )
                 })
