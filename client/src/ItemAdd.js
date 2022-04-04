@@ -16,11 +16,11 @@ export default function ItemAdd({setItems, setTotal}) {
     }
 
     return (
-    <React.Fragment>
+    <div className='tr add-item'>
         <div className='td noprint'></div>
         <div className='td noprint'><input className='value' ref={itemNameRef} type='text' placeholder='detail' /></div>
         <div className='td noprint'><input className='value' ref={itemValRef} type='text' placeholder='$ value'/></div>
         <div className='td'><button className='noprint add-item' onClick={addItem}>Create</button></div>
-    </React.Fragment>
+    </div>
   )
 }

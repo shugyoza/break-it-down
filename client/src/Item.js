@@ -112,7 +112,7 @@ export default function Item(props) {
             <div className='td'>{idx + 1}</div>
             {tdName()}
             {tdVal()}
-            <div className='td'><button className='noprint' id={item.id} onClick={deleteItem}>Delete</button></div>
+            <div className='td noprint'><button className='noprint' id={item.id} onClick={deleteItem}>Delete</button></div>
         </React.Fragment>
     )
 }

@@ -5,19 +5,17 @@ import Item from './Item';
 export default function ItemList(props) {
 
     return (
-        <div className='table'>
+        <div className='table'><h2 className='noprint'>Break-down</h2>
+            <div className='clearFields'><button className='noprint' onClick={props.clickClearFields}>Clear Fields</button></div>
             <div className='thead'>
                 <div className='tr'>
                     <div className='th no'>#</div>
                     <div className='th'>Detail</div>
                     <div className='th'>Value</div>
-                    <div className='th'></div>
+                    <div className='th noprint'></div>
                 </div>
             </div>
             <div className='tbody'>
-                <div className='tr'>
-                    <ItemAdd setItems={props.setItems} setTotal={props.setTotal} />
-                </div>
                 {props.items.map((item, idx) => {
                     return (
                         <div className='tr' key={item.id}>
@@ -27,6 +25,15 @@ export default function ItemList(props) {
                 })
                 }
             </div>
+            <div className='tfoot'>
+                <div className='tr'>
+                    <div className='td no'></div>
+                    <div className='td'>Total</div>
+                    <div className='td'>{props.total}</div>
+                    <div className='td noprint'></div>
+                </div>
+            </div>
+
         </div>
     )
 }

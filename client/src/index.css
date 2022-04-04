@@ -23,6 +23,29 @@ code {
   align-items: flex-start;
 }
 
+.label-input {
+  display: flex;
+  justify-content: flex-start;
+}
+
+div.td > label {
+  justify-self: flex-start;
+}
+
+section.from {
+  display: flex;
+  flex-direction: column;
+}
+
+.label-input > label {
+  width: 30%;
+}
+
+.label-input > input.value {
+  border-bottom: 1px solid lightgray;
+  text-align: start;
+}
+
 .clearFields {
   display: flex;
   justify-content: center;
