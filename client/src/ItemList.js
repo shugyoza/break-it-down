@@ -15,12 +15,12 @@ export default function ItemList(props) {
             </thead>
             <tbody>
                 <tr>
-                    <ItemAdd items={props.items} setItems={props.setItems} total={props.total} setTotal={props.setTotal} inputs={props.inputs} setInputs={props.setInputs} />
+                    <ItemAdd setItems={props.setItems} setTotal={props.setTotal} />
                 </tr>
                 {props.items.map((item, idx) => {
                     return (
                         <tr key={item.id}>
-                            <Item idx={idx} item={item} items={props.items} setItems={props.setItems} total={props.total} setTotal={props.setTotal} input={props.inputs[idx]} setInputs={props.setInputs} deleteItem={props.deleteItem} />
+                            <Item idx={idx} item={item} items={props.items} setItems={props.setItems} total={props.total} setTotal={props.setTotal} deleteItem={props.deleteItem} />
                         </tr>
                     )
                 })

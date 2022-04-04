@@ -1,10 +1,12 @@
 import React, {useState, useRef} from 'react';
 
 export default function Item(props) {
-    const [alphaName, setAlphaName] = useState(props.item.name);
-    const [alphaVal, setAlphaVal] = useState(props.item.val);
-    const [nameField, setNameField] = useState(props.input.name);   // boolean, default false
-    const [valField, setValField] = useState(props.input.val);      // boolean, default false
+    const {items, setItems, idx, item, setTotal, deleteItem} = props;
+
+    const [alphaName, setAlphaName] = useState(item.name);
+    const [alphaVal, setAlphaVal] = useState(item.val - 0);
+    const [nameField, setNameField] = useState(false);   // boolean, default false
+    const [valField, setValField] = useState(false);      // boolean, default false
 
     const updateNameRef = useRef();
     const updateValRef = useRef();
@@ -29,17 +31,17 @@ export default function Item(props) {
         const newName = updateNameRef.current.value;
         // change the state for name
 
-        const newItem = {...props.item};
+        const newItem = {...item};
         newItem.name = newName;
-        const newItems = JSON.parse(JSON.stringify(props.items));
-        newItems[props.idx] = newItem;
-        props.setItems(newItems);
+        const newItems = JSON.parse(JSON.stringify(items));
+        newItems[idx] = newItem;
+        setItems(newItems);
 
 
         // revert the element into a regular element (not an input field)
         setNameField((prevNameField) => !prevNameField);
         // reset the input field
-        setAlphaName('');
+        setAlphaName(newName);
     }
 
     const saveVal = (e) => {
@@ -48,43 +50,40 @@ export default function Item(props) {
         // grab the value from the input field, convert it into a typeof number
         const newVal = updateValRef.current.value - 0;
         // subtract the previous val from the current total
-        props.setTotal((prevTotal) => prevTotal - props.item.val);
+        setTotal((prevTotal) => prevTotal - item.val);
         // set new val
         // setVal(newVal);
 
-        const newItem = {...props.item};
+        const newItem = {...item};
         newItem.val = newVal;
-/*         const newItems = JSON.parse(JSON.stringify(props.items));
-        newItems[props.idx] = newItem;
-        props.setItems(newItems); */
 
-        props.setItems((prevItems) => {
+        setItems((prevItems) => {
             const newItems = JSON.parse(JSON.stringify(prevItems));
-            newItems[props.idx] = newItem;
+            newItems[idx] = newItem;
             return newItems;
         })
 
 
         // add new val to current total
-        props.setTotal((prevTotal) => prevTotal + newVal);
+        setTotal((prevTotal) => prevTotal + newVal);
         // revert back the input field
         setValField((prevValField) => !prevValField);
         // reset the input field value
-        setAlphaVal('');
+        setAlphaVal(newVal);
     }
 
     const tdName = () => {
         if (nameField) return (
             <React.Fragment>
-                <td>
-                    <input ref={updateNameRef} id={`${props.item.id}-name`} type='text' onChange={inputName} placeholder={props.item.name}/>
-                    <button onClick={saveName}>Save</button>
+                <td id={`${'burh'}`}>
+                    <input ref={updateNameRef} id={`${item.id}-name`} type='text' onChange={inputName} value={alphaName}/>
+                    <button className='noprint' onClick={saveName}>Save</button>
                 </td>
             </React.Fragment>
         )
         else return (
             <React.Fragment>
-                <td id={props.item.id} onClick={showNameField}>{props.item.name}</td>
+                <td id={item.id} onClick={showNameField}>{item.name}</td>
             </React.Fragment>
         )
     }
@@ -93,12 +92,12 @@ export default function Item(props) {
         if (valField) return (
             <React.Fragment>
                 <td>
-                    <input ref={updateValRef} id={`${props.item.id}-val`} type='text' onChange={inputVal} placeholder={props.item.val}/>
+                    <input ref={updateValRef} id={`${item.id}-val`} type='text' onChange={inputVal} value={alphaVal}/>
                     <button onClick={saveVal}>Save</button>
                 </td>
             </React.Fragment>
         )
-        else return <td id={props.item.id} onClick={showValField}>{props.item.val}</td>;
+        else return <td id={item.id} onClick={showValField}>{item.val}</td>;
     }
 
 
@@ -107,9 +106,7 @@ export default function Item(props) {
             <td></td>
             {tdName()}
             {tdVal()}
-            <button id={props.item.id} onClick={props.deleteItem}>Delete</button>
+            <button id={item.id} onClick={deleteItem}>Delete</button>
         </React.Fragment>
     )
 }
-
-//             <button onClick={input ? save : editMode}>{input ? 'Save' : 'Edit'}</button>

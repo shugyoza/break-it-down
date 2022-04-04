@@ -8,7 +8,6 @@ const LOCAL_STORAGE_KEY_TOTAL = 'itemizeApp.total'
 function App() {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
-  const [inputs, setInputs] = useState([]);
 
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_ITEMS));
@@ -51,10 +50,10 @@ function App() {
 
   return (
     <div className={'container'}>
-      <button onClick={clickClearFields}>Clear Fields</button>
-      <ItemList items={items} setItems={setItems} total={total} setTotal={setTotal} inputs={inputs} setInputs={setInputs} deleteItem={deleteItem}/>
+      <button className='noprint' onClick={clickClearFields}>Clear Fields</button>
+      <ItemList items={items} setItems={setItems} total={total} setTotal={setTotal} deleteItem={deleteItem}/>
       <div>The total for {items.length} items is: ${total}</div>
-      <button onClick={clickClearFields}>Clear Fields</button>
+      <button className='noprint' onClick={clickClearFields}>Clear Fields</button>
     </div>
   );
 }
