@@ -1,3 +1,13 @@
+# Project Note
+
+## 20220404
+
+Problem: Getting "Uncaught SyntaxError: Unexpected token u in JSON at position 0" when trying to have the state (sender fields)
+stored into localStorage.
+Cause: setSender I called on the Sender component when modifying the field did not have a return, thus returns undefined, which
+cannot be parsed into JSON.
+Solution have the setSender((prevSender) => {RETURN...)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

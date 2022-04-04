@@ -5,13 +5,22 @@ import From from './From';
 import ItemAdd from'./ItemAdd';
 
 const LOCAL_STORAGE_KEY_ITEMS = 'itemizeApp.items';
-const LOCAL_STORAGE_KEY_TOTAL = 'itemizeApp.total'
+const LOCAL_STORAGE_KEY_TOTAL = 'itemizeApp.total';
+const LOCAL_STORAGE_KEY_SENDER = 'itemizeApp.sender';
 
 function App(props) {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
+  const [sender, setSender] = useState([]);
 
   const containerRef = useRef();
+
+  // getItem and setItem are prescribed method for working with local storage
+  // setItem(): method to add a key: value to localStorage;
+  // getItem(): method to get an item from localStorage using the key;
+  // removeItem(): method to delete an item from  localStorage based on its key;
+  // clear(): method to delete all instances of localStorage;
+  // key(): when we supply a number, it aids in the retrieval of a localStorage key.
 
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_ITEMS));
@@ -30,6 +39,15 @@ function App(props) {
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY_TOTAL, JSON.stringify(total))
   }, [total]);
+
+  useEffect(() => {
+    const storedSender = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_SENDER));
+    if (storedSender) setSender(storedSender);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY_SENDER, JSON.stringify(sender))
+  }, [sender]);
 
   function clickClearFields() {
     const newItems = [];
@@ -53,16 +71,16 @@ function App(props) {
 }
 
   function save(e) {
-    console.log(e.target.id)
+    // console.log(e.target.id)
     // TODO set all editables false, save all text to item, and only set current's editables as true, if there is
 
   }
 
   return (
     <div onClick={save} ref={containerRef} className={'container'}>
-      <p className='title noprint'><h1>Itemize</h1></p>
-      <From />
-      <p className='noprint'><h2>Add Item</h2></p>
+      <h1 className='title noprint'>Itemize</h1>
+      <From setSender={setSender} sender={sender} />
+      <h2 className='noprint'>Add Item</h2>
       <div className='tr'>
         <ItemAdd setItems={props.setItems} setTotal={props.setTotal} />
       </div>

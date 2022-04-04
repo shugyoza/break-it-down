@@ -38,7 +38,7 @@ section.from {
 }
 
 .label-input > label {
-  width: 30%;
+  width: 22%;
 }
 
 .label-input > input.value {
@@ -67,6 +67,10 @@ section.from {
 
 button {
   width: 100%;
+}
+
+button.btn-save {
+  width: 18%;
 }
 
 .value {
