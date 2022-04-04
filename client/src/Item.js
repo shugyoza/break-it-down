@@ -3,19 +3,19 @@ import React, {useState, useRef} from 'react';
 export default function Item(props) {
     const {items, setItems, idx, item, setTotal, deleteItem} = props;
 
-    const [alphaName, setAlphaName] = useState(item.name);
-    const [alphaVal, setAlphaVal] = useState(item.val - 0);
-    const [nameField, setNameField] = useState(false);   // boolean, default false
-    const [valField, setValField] = useState(false);      // boolean, default false
+    const [alphaName, setAlphaName] = useState(item.name.text);
+    const [alphaVal, setAlphaVal] = useState(item.val.text - 0);
+    const [nameField, setNameField] = useState(item.name.editable);   // boolean, default false
+    const [valField, setValField] = useState(item.val.editable);      // boolean, default false
 
     const updateNameRef = useRef();
     const updateValRef = useRef();
 
     // show the input field for name
-    const showNameField = (e) => setNameField((prevNameField) => !prevNameField);
+    const showNameField = (e) => setNameField(true);
 
     // show the input field for val
-    const showValField = (e) => setValField((prevValField) => !prevValField);
+    const showValField = (e) => setValField(true);
 
     // type in the input field for name
     const inputName = (e) => setAlphaName(e.target.value);
@@ -30,17 +30,21 @@ export default function Item(props) {
         // grab the value from the input field
         const newName = updateNameRef.current.value;
         // change the state for name
-
-        const newItem = {...item};
-        newItem.name = newName;
-        const newItems = JSON.parse(JSON.stringify(items));
-        newItems[idx] = newItem;
-        setItems(newItems);
-
-
+        // create a deep copy of item
+        const newItem = JSON.parse(JSON.stringify(item));
+        // change the name.text value into newName
+        newItem.name.text = newName;
         // revert the element into a regular element (not an input field)
-        setNameField((prevNameField) => !prevNameField);
-        // reset the input field
+        setNameField(false);
+        // change the name's editable state back to false
+        newItem.name.editable = false;
+        // create a deep copy of items;
+        const newItems = JSON.parse(JSON.stringify(items));
+        // reassign the item object at that index with this newItem we created
+        newItems[idx] = newItem;
+        // save the modified items into the state
+        setItems(newItems);
+        // reset the input field value
         setAlphaName(newName);
     }
 
@@ -50,24 +54,26 @@ export default function Item(props) {
         // grab the value from the input field, convert it into a typeof number
         const newVal = updateValRef.current.value - 0;
         // subtract the previous val from the current total
-        setTotal((prevTotal) => prevTotal - item.val);
-        // set new val
-        // setVal(newVal);
-
-        const newItem = {...item};
-        newItem.val = newVal;
-
+        setTotal((prevTotal) => prevTotal - (item.val.text - 0));
+        // create a deep copy of the item object
+        const newItem = JSON.parse(JSON.stringify(item));
+        // change the old val value with the new one, typeof string
+        newItem.val.text = '' + newVal;
+        // reset the valField state back to false
+        setValField(false)
+        // change the val.editable back to false
+        newItem.val.editable = false;
+        // modify the items
         setItems((prevItems) => {
+            // create a deep copy of the items
             const newItems = JSON.parse(JSON.stringify(prevItems));
+            // replace the item at idx with our newItem
             newItems[idx] = newItem;
+            // return the new items
             return newItems;
         })
-
-
         // add new val to current total
         setTotal((prevTotal) => prevTotal + newVal);
-        // revert back the input field
-        setValField((prevValField) => !prevValField);
         // reset the input field value
         setAlphaVal(newVal);
     }
@@ -75,15 +81,15 @@ export default function Item(props) {
     const tdName = () => {
         if (nameField) return (
             <React.Fragment>
-                <td id={`${'burh'}`}>
+                <div className='td' id={`${'burh'}`}>
                     <input ref={updateNameRef} id={`${item.id}-name`} type='text' onChange={inputName} value={alphaName}/>
                     <button className='noprint' onClick={saveName}>Save</button>
-                </td>
+                </div>
             </React.Fragment>
         )
         else return (
             <React.Fragment>
-                <td id={item.id} onClick={showNameField}>{item.name}</td>
+                <div className='td'><button className='value' id={item.id} onClick={showNameField}>{item.name.text}</button></div>
             </React.Fragment>
         )
     }
@@ -91,22 +97,22 @@ export default function Item(props) {
     const tdVal = () => {
         if (valField) return (
             <React.Fragment>
-                <td>
+                <div class='td'>
                     <input ref={updateValRef} id={`${item.id}-val`} type='text' onChange={inputVal} value={alphaVal}/>
                     <button onClick={saveVal}>Save</button>
-                </td>
+                </div>
             </React.Fragment>
         )
-        else return <td id={item.id} onClick={showValField}>{item.val}</td>;
+        else return <div className='td'><button className='value' id={item.id} onClick={showValField}>{item.val.text}</button></div>;
     }
 
 
     return (
         <React.Fragment>
-            <td></td>
+            <div className='td'>{idx + 1}</div>
             {tdName()}
             {tdVal()}
-            <button id={item.id} onClick={deleteItem}>Delete</button>
+            <div className='td'><button className='noprint' id={item.id} onClick={deleteItem}>Delete</button></div>
         </React.Fragment>
     )
 }

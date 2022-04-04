@@ -5,22 +5,22 @@ export default function ItemAdd({setItems, setTotal}) {
     const itemNameRef = useRef();
     const itemValRef = useRef();
 
-    function clickAddItem(e) {
+    function addItem(e) {
         const inputName = itemNameRef.current.value;
         const inputVal = itemValRef.current.value;
         const newID = `${Date.now()}`;
         if (inputName === '' || inputVal === '') return;
-        setItems((prevItems) => [...prevItems, {id: newID, name: inputName, val: inputVal}])
+        setItems((prevItems) => [...prevItems, {id: newID, name: {text: inputName, editable: false}, val: {text: inputVal, editable: false}}])
         setTotal((prevTotal) => prevTotal - 0 + (inputVal - 0))
         itemNameRef.current.value = itemValRef.current.value = null;
     }
 
     return (
     <React.Fragment>
-        <td className='noprint'></td>
-        <td className='noprint detail'><input className='detail' ref={itemNameRef} type='text' placeholder='detail' /></td>
-        <td className='noprint value'><input className='value' ref={itemValRef} type='text' placeholder='$ value'/></td>
-        <button className='noprint add-item' onClick={clickAddItem}>Add</button>
+        <div className='td noprint'></div>
+        <div className='td noprint'><input className='value' ref={itemNameRef} type='text' placeholder='detail' /></div>
+        <div className='td noprint'><input className='value' ref={itemValRef} type='text' placeholder='$ value'/></div>
+        <div className='td'><button className='noprint add-item' onClick={addItem}>Create</button></div>
     </React.Fragment>
   )
 }

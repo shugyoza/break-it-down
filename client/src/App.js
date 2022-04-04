@@ -39,10 +39,10 @@ function App() {
     let newTotal;
     for (let i = 0; i < items.length; i++) {
         if (items[i].id === e.target.id) {
-            newTotal = total - items[i].val;
+            newTotal = total - (items[i].val.text - 0);
             setTotal(newTotal);
         } else if (items[i].id !== e.target.id) {
-            newItems.push(items[i]);
+            newItems.push(JSON.parse(JSON.stringify(items[i])));
         }
     }
     setItems(newItems);
@@ -50,10 +50,10 @@ function App() {
 
   return (
     <div className={'container'}>
-      <button className='noprint' onClick={clickClearFields}>Clear Fields</button>
+      <div className='clearFields'><button className='noprint' onClick={clickClearFields}>Clear Fields</button></div>
       <ItemList items={items} setItems={setItems} total={total} setTotal={setTotal} deleteItem={deleteItem}/>
       <div>The total for {items.length} items is: ${total}</div>
-      <button className='noprint' onClick={clickClearFields}>Clear Fields</button>
+      <div className='clearFields'><button className='noprint' onClick={clickClearFields}>Clear Fields</button></div>
     </div>
   );
 }
