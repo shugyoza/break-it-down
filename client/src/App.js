@@ -13,7 +13,7 @@ function App(props) {
   const [total, setTotal] = useState(0);
 
   const senderFields = 6;
-  const [sender, setSender] = useState(new Array(senderFields).fill({text: '', editable: false}));
+  const [sender, setSender] = useState(new Array(senderFields).fill(''));
 
   const recipientFields = 6;
   const [recipient, setRecipient] = useState(new Array(senderFields).fill({text: '', editable: false}));
@@ -75,14 +75,8 @@ function App(props) {
     setItems(newItems);
 }
 
-  function save(e) {
-    // console.log(e.target.id)
-    // TODO set all editables false, save all text to item, and only set current's editables as true, if there is
-
-  }
-
   return (
-    <div onClick={save} ref={containerRef} className={'container'}>
+    <div ref={containerRef} className={'container'}>
       <h1 className='title noprint'>Itemize</h1>
       <From setSender={setSender} sender={sender} />
       <ItemList items={items} setItems={setItems} total={total} setTotal={setTotal} deleteItem={deleteItem} clickClearFields={clickClearFields} />

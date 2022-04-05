@@ -69,7 +69,8 @@ button {
   width: 100%;
 }
 
-button.btn-save {
+button.btn-save,
+button.btn-clear {
   width: 18%;
 }
 
@@ -93,6 +94,7 @@ button.btn-data {
   background-color: transparent;
   border: none;
   border-bottom: 1px solid lightgray;
+  text-align: start;
 }
 
 button.btn-data:hover {
@@ -101,6 +103,7 @@ button.btn-data:hover {
 
 section.sender input {
   border-bottom: 1px solid pink;
+  text-align: start;
 }
 
 section.sender input:hover {
