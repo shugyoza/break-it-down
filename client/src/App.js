@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import ItemList from './ItemList';
 import A from './App.css';
-import From from './From';
+import From from './Sender';
 import ItemAdd from'./ItemAdd';
 
 const LOCAL_STORAGE_KEY_ITEMS = 'itemizeApp.items';
@@ -11,7 +11,12 @@ const LOCAL_STORAGE_KEY_SENDER = 'itemizeApp.sender';
 function App(props) {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
-  const [sender, setSender] = useState([]);
+
+  const senderFields = 6;
+  const [sender, setSender] = useState(new Array(senderFields).fill({text: '', editable: false}));
+
+  const recipientFields = 6;
+  const [recipient, setRecipient] = useState(new Array(senderFields).fill({text: '', editable: false}));
 
   const containerRef = useRef();
 
@@ -80,13 +85,13 @@ function App(props) {
     <div onClick={save} ref={containerRef} className={'container'}>
       <h1 className='title noprint'>Itemize</h1>
       <From setSender={setSender} sender={sender} />
-      <h2 className='noprint'>Add Item</h2>
-      <div className='tr'>
-        <ItemAdd setItems={props.setItems} setTotal={props.setTotal} />
-      </div>
       <ItemList items={items} setItems={setItems} total={total} setTotal={setTotal} deleteItem={deleteItem} clickClearFields={clickClearFields} />
       <div>The total for {items.length} items is: ${total}</div>
       <div className='clearFields'><button className='noprint' onClick={clickClearFields}>Clear Fields</button></div>
+      <h2 className='noprint'>Add</h2>
+      <div className='tr'>
+        <ItemAdd setItems={setItems} setTotal={setTotal} />
+      </div>
       <p className='noprint'>Shugyoza, 2022, on React</p>
     </div>
   );

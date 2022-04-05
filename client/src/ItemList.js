@@ -4,14 +4,18 @@ import Item from './Item';
 
 export default function ItemList(props) {
 
+    const th1 = '#';
+    const th2 = 'Detail';
+    const th3 = 'Sub-total';
+
     return (
-        <div className='table'><h2 className='noprint'>Break-down</h2>
+        <div className='table'><h2 className='noprint'>List</h2>
             <div className='clearFields'><button className='noprint' onClick={props.clickClearFields}>Clear Fields</button></div>
             <div className='thead'>
                 <div className='tr'>
-                    <div className='th no'>#</div>
-                    <div className='th'>Detail</div>
-                    <div className='th'>Value</div>
+                    <div className='th no'>{th1}</div>
+                    <div className='th'>{th2}</div>
+                    <div className='th'>{th3}</div>
                     <div className='th noprint'></div>
                 </div>
             </div>

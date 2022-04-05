@@ -32,7 +32,7 @@ div.td > label {
   justify-self: flex-start;
 }
 
-section.from {
+section.sender {
   display: flex;
   flex-direction: column;
 }
@@ -83,6 +83,28 @@ input {
   text-align: center;
   width: 90%;
   border: none;
+}
+
+.btn.value {
+  justify-self: flex-start;
+}
+
+button.btn-data {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid lightgray;
+}
+
+button.btn-data:hover {
+  background-color: lightpink;
+}
+
+section.sender input {
+  border-bottom: 1px solid pink;
+}
+
+section.sender input:hover {
+  background-color: lightskyblue;
 }
 
 /* th,
