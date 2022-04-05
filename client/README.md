@@ -7,6 +7,7 @@ stored into localStorage.
 Cause: setSender I called on the Sender component when modifying the field did not have a return, thus returns undefined, which
 cannot be parsed into JSON.
 Solution have the setSender((prevSender) => {RETURN...)
+Note: sender is now seller
 
 # Getting Started with Create React App
 

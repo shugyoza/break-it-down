@@ -1,7 +1,7 @@
-import React, {useState, useRef} from 'react';
-import Field from './Field';
+import React from 'react';
+import SellerField from './SellerField';
 
-export default function Sender({sender, setSender}) {
+export default function Seller({seller, setSeller}) {
 
     const placeholder = {
         '1': 'e.g. Jane Doe, LLC.',
@@ -15,18 +15,18 @@ export default function Sender({sender, setSender}) {
     const label = {
         '1': 'Name',
         '2': 'Extra',
-        '3': 'Address1',
-        '4': 'Address2',
+        '3': 'Address',
+        '4': 'Address',
         '5': 'Phone',
         '6': 'Email'
     }
 
     return (
-        <section className='sender'>
+        <section className='seller'>
             <h2 className='noprint'>
-                Sender
+                Seller
             </h2>
-            {sender.map((line, idx) => <Field idx={idx} placeholder={placeholder} label={label} text={line} sender={sender} setSender={setSender} />)}
+            {seller.map((line, idx) => <SellerField key={`seller-line-${idx}`} idx={idx} placeholder={placeholder} label={label} text={line} seller={seller} setSeller={setSeller} />)}
         </section>
     )
 }

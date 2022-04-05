@@ -81,15 +81,15 @@ export default function Item(props) {
     const tdName = () => {
         if (nameField) return (
             <React.Fragment>
-                <div className='td' id={`${'burh'}`}>
+                <div className='td col-1' id={`${'burh'}`}>
                     <input ref={updateNameRef} id={`${item.id}-name`} type='text' onChange={inputName} value={alphaName}/>
-                    <button className='noprint' onClick={saveName}>Save</button>
+                    <button className='btn-save noprint' onClick={saveName}>Save</button>
                 </div>
             </React.Fragment>
         )
         else return (
             <React.Fragment>
-                <div className='td'><button className='value' id={item.id} onClick={showNameField}>{item.name.text}</button></div>
+                <div className='td col-1'><button className='value' id={item.id} onClick={showNameField}>{item.name.text}</button></div>
             </React.Fragment>
         )
     }
@@ -97,22 +97,22 @@ export default function Item(props) {
     const tdVal = () => {
         if (valField) return (
             <React.Fragment>
-                <div class='td'>
+                <div class='td col-2'>
                     <input ref={updateValRef} id={`${item.id}-val`} type='text' onChange={inputVal} value={alphaVal}/>
-                    <button onClick={saveVal}>Save</button>
+                    <button className='btn-save noprint' onClick={saveVal}>Save</button>
                 </div>
             </React.Fragment>
         )
-        else return <div className='td'><button className='value' id={item.id} onClick={showValField}>{item.val.text}</button></div>;
+        else return <div className='td col-2'><button className='value' id={item.id} onClick={showValField}>{item.val.text}</button></div>;
     }
 
 
     return (
         <React.Fragment>
-            <div className='td'>{idx + 1}</div>
+            <div className='td seq'>{idx + 1}</div>
             {tdName()}
             {tdVal()}
-            <div className='td noprint'><button className='noprint' id={item.id} onClick={deleteItem}>Delete</button></div>
+            <div className='td btn-delete noprint'><button className='noprint' id={item.id} onClick={deleteItem}>Delete</button></div>
         </React.Fragment>
     )
 }

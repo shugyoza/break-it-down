@@ -1,22 +1,25 @@
 import React, {useState, useEffect, useRef} from 'react';
 import ItemList from './ItemList';
 import A from './App.css';
-import From from './Sender';
-import ItemAdd from'./ItemAdd';
+import DateNo from './DateNo';
+import Seller from './Seller';
+import Buyer from './Buyer';
 
 const LOCAL_STORAGE_KEY_ITEMS = 'itemizeApp.items';
 const LOCAL_STORAGE_KEY_TOTAL = 'itemizeApp.total';
-const LOCAL_STORAGE_KEY_SENDER = 'itemizeApp.sender';
+const LOCAL_STORAGE_KEY_SELLER = 'itemizeApp.seller';
+const LOCAL_STORAGE_KEY_BUYER = 'itemizeApp.buyer';
+
 
 function App(props) {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
 
-  const senderFields = 6;
-  const [sender, setSender] = useState(new Array(senderFields).fill(''));
+  const sellerFields = 6;
+  const [seller, setSeller] = useState(new Array(sellerFields).fill(''));
 
-  const recipientFields = 6;
-  const [recipient, setRecipient] = useState(new Array(senderFields).fill({text: '', editable: false}));
+  const buyerFields = 6;
+  const [buyer, setBuyer] = useState(new Array(buyerFields).fill(''));
 
   const containerRef = useRef();
 
@@ -46,13 +49,23 @@ function App(props) {
   }, [total]);
 
   useEffect(() => {
-    const storedSender = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_SENDER));
-    if (storedSender) setSender(storedSender);
+    const storedSeller = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_SELLER));
+    if (storedSeller) setSeller(storedSeller);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY_SENDER, JSON.stringify(sender))
-  }, [sender]);
+    localStorage.setItem(LOCAL_STORAGE_KEY_SELLER, JSON.stringify(seller))
+  }, [seller]);
+
+  useEffect(() => {
+    const storedBuyer = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_BUYER));
+    if (storedBuyer) setBuyer(storedBuyer);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY_BUYER, JSON.stringify(buyer))
+  }, [buyer]);
+
 
   function clickClearFields() {
     const newItems = [];
@@ -78,14 +91,12 @@ function App(props) {
   return (
     <div ref={containerRef} className={'container'}>
       <h1 className='title noprint'>Itemize</h1>
-      <From setSender={setSender} sender={sender} />
+      <DateNo />
+      <Seller setSeller={setSeller} seller={seller} />
+      <Buyer setBuyer={setBuyer} buyer={buyer} />
       <ItemList items={items} setItems={setItems} total={total} setTotal={setTotal} deleteItem={deleteItem} clickClearFields={clickClearFields} />
       <div>The total for {items.length} items is: ${total}</div>
       <div className='clearFields'><button className='noprint' onClick={clickClearFields}>Clear Fields</button></div>
-      <h2 className='noprint'>Add</h2>
-      <div className='tr'>
-        <ItemAdd setItems={setItems} setTotal={setTotal} />
-      </div>
       <p className='noprint'>Shugyoza, 2022, on React</p>
     </div>
   );

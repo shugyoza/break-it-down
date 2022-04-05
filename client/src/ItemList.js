@@ -1,6 +1,6 @@
 import React from 'react';
-import ItemAdd from './ItemAdd';
 import Item from './Item';
+import ItemAdd from './ItemAdd';
 
 export default function ItemList(props) {
 
@@ -13,10 +13,10 @@ export default function ItemList(props) {
             <div className='clearFields'><button className='noprint' onClick={props.clickClearFields}>Clear Fields</button></div>
             <div className='thead'>
                 <div className='tr'>
-                    <div className='th no'>{th1}</div>
-                    <div className='th'>{th2}</div>
-                    <div className='th'>{th3}</div>
-                    <div className='th noprint'></div>
+                    <div className='th seq'>{th1}</div>
+                    <div className='th col-1'>{th2}</div>
+                    <div className='th col-2'>{th3}</div>
+                    <div className='th btn-delete noprint'></div>
                 </div>
             </div>
             <div className='tbody'>
@@ -29,12 +29,13 @@ export default function ItemList(props) {
                 })
                 }
             </div>
+            <ItemAdd setItems={props.setItems} setTotal={props.setTotal} />
             <div className='tfoot'>
                 <div className='tr'>
-                    <div className='td no'></div>
-                    <div className='td'>Total</div>
-                    <div className='td'>{props.total}</div>
-                    <div className='td noprint'></div>
+                    <div className='td seq'></div>
+                    <div className='td col-1'>Total</div>
+                    <div className='td col-2'>{props.total}</div>
+                    <div className='td btn-delete noprint'></div>
                 </div>
             </div>
 

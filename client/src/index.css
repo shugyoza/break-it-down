@@ -9,7 +9,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   height: 100vh;
-  width: 100vw;
+  width: 100%;
 }
 
 code {
@@ -21,6 +21,16 @@ code {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  width: 100%;
+}
+
+.container {
+  width: 90%;
+}
+
+h2 {
+  background-color: lavenderblush;
+  text-align: center;
 }
 
 .label-input {
@@ -32,7 +42,8 @@ div.td > label {
   justify-self: flex-start;
 }
 
-section.sender {
+section.seller,
+section.buyer {
   display: flex;
   flex-direction: column;
 }
@@ -65,6 +76,11 @@ section.sender {
   justify-content: center;
 }
 
+.col-2 {
+  width: 50%;
+  max-width: 15rem;
+}
+
 button {
   width: 100%;
 }
@@ -72,6 +88,7 @@ button {
 button.btn-save,
 button.btn-clear {
   width: 18%;
+  max-width: 4rem;
 }
 
 .value {
@@ -93,21 +110,32 @@ input {
 button.btn-data {
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid yellowgreen;
   text-align: start;
 }
 
 button.btn-data:hover {
-  background-color: lightpink;
+  background-color: lightgreen;
 }
 
-section.sender input {
-  border-bottom: 1px solid pink;
+.btn-delete,
+.btn-create {
+  width: 46%;
+  max-width: 4rem;
+}
+
+section.seller input,
+section.buyer input {
+  border-bottom: 1px solid red;
   text-align: start;
 }
 
-section.sender input:hover {
-  background-color: lightskyblue;
+section.seller input:hover {
+  background-color: lightpink;
+}
+
+.seq {
+  width: 20%;
 }
 
 /* th,
@@ -134,6 +162,10 @@ td {
   }
   table {
     width: 100%;
+  }
+  button,
+  button.btn-data {
+    border: none;
   }
   @page {
     margin-left: 0cm;
