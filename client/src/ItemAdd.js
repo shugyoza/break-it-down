@@ -10,12 +10,19 @@ export default function ItemAdd({setItems, setTotal}) {
     // }, [])
 
     function addItem(e) {
+        const newID = `${Date.now()}`;
         const inputName = itemNameRef.current.value;
         const inputVal = itemValRef.current.value;
-        const newID = `${Date.now()}`;
+        const dollarX100 = Math.floor((inputVal - 0) * 100);
+
         if (inputName === '' || inputVal === '') return;
-        setItems((prevItems) => [...prevItems, {id: newID, name: {text: inputName, editable: false}, val: {text: inputVal, editable: false}}])
-        setTotal((prevTotal) => prevTotal - 0 + (inputVal - 0))
+        setItems((prevItems) => [...prevItems, {id: newID, name: {text: inputName, editable: false}, val: {text: dollarX100, editable: false}}]);
+
+        setTotal((prevTotal) => {
+            const prevTotalX100 = Math.floor(prevTotal - 0);
+            const newTotalX100 = prevTotalX100 + dollarX100;
+            return newTotalX100;
+        });
         itemNameRef.current.value = itemValRef.current.value = null;
 
         // when addItem clicked, the list render the created additional item, and put the cursor in the referred element
@@ -24,11 +31,11 @@ export default function ItemAdd({setItems, setTotal}) {
     }
 
     return (
-    <div className='tr add-item'>
-        <div className='td seq noprint'>Add: </div>
-        <div className='td col-1 noprint'><input className='value' ref={itemNameRef} type='text' placeholder='detail' /></div>
-        <div className='td col-2 noprint'><input className='value' ref={itemValRef} type='text' placeholder='$ value'/></div>
-        <div className='td btn-create'><button className='noprint add-item' onClick={addItem}>Create</button></div>
+    <div className='tr add-item noprint'>
+        <div className='td seq noprint'>+</div>
+        <div className='td col-1 noprint'><input className='table-input' ref={itemNameRef} type='text' placeholder='detail' /></div>
+        <div className='td col-2 noprint'><input className='table-input' ref={itemValRef} type='text' placeholder='$ value'/></div>
+        <div className='td col-btn noprint'><button className='noprint btn-save' onClick={addItem}>Save</button></div>
     </div>
   )
 }

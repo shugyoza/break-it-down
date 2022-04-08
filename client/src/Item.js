@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
 
 export default function Item(props) {
-    const {items, setItems, idx, item, setTotal, deleteItem} = props;
+    const {items, setItems, idx, item, setTotal, deleteItem, showPennies, toIntX100} = props;
 
     const [alphaName, setAlphaName] = useState(item.name.text);
     const [alphaVal, setAlphaVal] = useState(item.val.text - 0);
@@ -51,14 +51,14 @@ export default function Item(props) {
     const saveVal = (e) => {
         // if the user submitted a blank input field for val, do nothing
         if (!updateValRef.current.value.length) return;
-        // grab the value from the input field, convert it into a typeof number
-        const newVal = updateValRef.current.value - 0;
+        // grab the value from the input field, convert it into a typeof numbe
+        const newVal = toIntX100(updateValRef.current.value);
         // subtract the previous val from the current total
-        setTotal((prevTotal) => prevTotal - (item.val.text - 0));
+        setTotal((prevTotal) => prevTotal - item.val.text);
         // create a deep copy of the item object
         const newItem = JSON.parse(JSON.stringify(item));
         // change the old val value with the new one, typeof string
-        newItem.val.text = '' + newVal;
+        newItem.val.text = newVal; // integer (x100)
         // reset the valField state back to false
         setValField(false)
         // change the val.editable back to false
@@ -89,7 +89,7 @@ export default function Item(props) {
         )
         else return (
             <React.Fragment>
-                <div className='td col-1'><button className='value' id={item.id} onClick={showNameField}>{item.name.text}</button></div>
+                <div className='td col-1'><button className='table-data' id={item.id} onClick={showNameField}>{item.name.text}</button></div>
             </React.Fragment>
         )
     }
@@ -98,12 +98,12 @@ export default function Item(props) {
         if (valField) return (
             <React.Fragment>
                 <div class='td col-2'>
-                    <input ref={updateValRef} id={`${item.id}-val`} type='text' onChange={inputVal} value={alphaVal}/>
+                    <input ref={updateValRef} id={`${item.id}-val`} type='text' onChange={inputVal} placeholder={showPennies(alphaVal)}/>
                     <button className='btn-save noprint' onClick={saveVal}>Save</button>
                 </div>
             </React.Fragment>
         )
-        else return <div className='td col-2'><button className='value' id={item.id} onClick={showValField}>{item.val.text}</button></div>;
+        else return <div className='td col-2'><button className='table-data currency' id={item.id} onClick={showValField}>{showPennies(item.val.text)}</button></div>;
     }
 
 
@@ -112,7 +112,7 @@ export default function Item(props) {
             <div className='td seq'>{idx + 1}</div>
             {tdName()}
             {tdVal()}
-            <div className='td btn-delete noprint'><button className='noprint' id={item.id} onClick={deleteItem}>Delete</button></div>
+            <div className='td col-btn noprint'><button className='noprint btn-delete' id={item.id} onClick={deleteItem}>Delete</button></div>
         </React.Fragment>
     )
 }

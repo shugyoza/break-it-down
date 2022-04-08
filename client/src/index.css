@@ -17,6 +17,10 @@ code {
     monospace;
 }
 
+* {
+  font-size: min(4rem, max(0.875rem, 2vw));
+}
+
 #root {
   display: flex;
   justify-content: center;
@@ -29,32 +33,62 @@ code {
 }
 
 h2 {
-  background-color: lavenderblush;
+  background-color: lightskyblue;
   text-align: center;
+  border-radius: 0.2em;
+  color: black;
 }
 
-.label-input {
+fieldset {
+  border: none;
+}
+
+legend {
+  display: none;
+}
+
+::placeholder {
+  color: gray;
+}
+
+button {
+  border-radius: 0.2em;
+  margin: 0.1rem;
+  border: none;
+  width: 100%;
+}
+
+h2#title {
+  display: none;
+}
+
+.table {
+  border-radius: 0.3em;
+}
+
+.th {
+  font-weight: bold;
+}
+
+.info {
   display: flex;
   justify-content: flex-start;
 }
 
-div.td > label {
-  justify-self: flex-start;
+.field-label {
+  width: 28%;
+  max-width: 5rem;
 }
 
-section.seller,
-section.buyer {
+section {
   display: flex;
   flex-direction: column;
 }
 
-.label-input > label {
-  width: 22%;
-}
-
-.label-input > input.value {
-  border-bottom: 1px solid lightgray;
-  text-align: start;
+button.btn-save {
+  background-color: turquoise;
+  font-weight: bold;
+  border: 1px solid lightseagreen;
 }
 
 .clearFields {
@@ -71,9 +105,15 @@ section.buyer {
 .td,
 .th {
   width: 100%;
-  border: 0.1px solid lightgray;
+  border-bottom: 0.1px solid lightgray;
   display: flex;
   justify-content: center;
+  overflow: hidden;
+}
+
+.col1,
+.col2 {
+  border-left: 0.1px solid lightgray;
 }
 
 .col-2 {
@@ -81,8 +121,9 @@ section.buyer {
   max-width: 15rem;
 }
 
-button {
-  width: 100%;
+.add-item .seq {
+  color: green;
+  font-weight: bolder;
 }
 
 button.btn-save,
@@ -91,85 +132,160 @@ button.btn-clear {
   max-width: 4rem;
 }
 
+button.btn-delete:hover,
+button.btn-save:hover,
+button.btn-delete:hover {
+  background-color: orange;
+}
+
 .value {
   width: 100%;
-  background-color: transparent;
   border: none;
 }
 
 input {
   text-align: center;
-  width: 90%;
+  width: 100%;
   border: none;
+  border-radius: 0.2em;
 }
 
-.btn.value {
-  justify-self: flex-start;
-}
-
-button.btn-data {
+.field-data {
   background-color: transparent;
   border: none;
   border-bottom: 1px solid yellowgreen;
   text-align: start;
 }
 
-button.btn-data:hover {
+.field-data:hover,
+.table-data:hover {
   background-color: lightgreen;
 }
 
-.btn-delete,
-.btn-create {
-  width: 46%;
+.col-btn {
+  width: 36%;
   max-width: 4rem;
 }
 
-section.seller input,
-section.buyer input {
+.btn-delete {
+  background-color: pink;
+  font-weight: bold;
+  border: 1px solid plum;
+}
+
+.table .btn-save {
+  min-width: 3rem;
+  width: 100%;
+}
+
+.field-input {
   border-bottom: 1px solid red;
   text-align: start;
 }
 
-section.seller input:hover {
+.field-input:hover {
   background-color: lightpink;
 }
 
 .seq {
   width: 20%;
+  max-width: 3rem;
 }
 
+.table-data {
+  background-color: transparent;
+  border: none;
+  text-align: start;
+  white-space: pre-wrap; /* CSS3 */
+  white-space: -moz-pre-wrap; /* Firefox */
+  white-space: -pre-wrap; /* Opera < 7 */
+  white-space: -o-pre-wrap; /* IE */
+  word-wrap: break-word;
+  /* white-space: nowrap; does not wrap, but text got hidden at the end of div */
+}
+
+.table-data:hover {
+  background-color: lightgreen;
+}
+
+.currency {
+  text-align: end;
+}
+
+div.td.col-2.currency {
+  justify-content: flex-end;
+  margin-right: 0.5rem;
+}
+
+.table-input {
+  background-color: #e8ffde;
+}
+
+p.footer {
+  text-align: center;
+  color: black;
+}
 /* th,
 td {
   border-bottom: 1px solid black;
 } */
 
 @media print {
-  body {
+  /* @page { DOES NOT WORK!
+    margin-left: 7cm;
+    margin-right: 12cm;
+  } */
+  * {
     font-size: 12pt;
   }
   .noprint {
     display: none;
   }
   #root {
-    width: 100% !important;
+    width: 90% !important;
     padding: 0 !important;
     margin: 0 !important;
+    margin-top: 5% !important;
   }
-  .container {
-    width: 85% !important;
-    padding: 0 !important;
-    margin: 0 !important;
+  h2#title {
+    display: block;
   }
-  table {
-    width: 100%;
+  legend {
+    all: unset;
+  }
+  div.th {
+    background-color: lightgray;
   }
   button,
-  button.btn-data {
+  .field-data,
+  .field-input {
     border: none;
   }
-  @page {
-    margin-left: 0cm;
-    margin-right: 0cm;
+  /* .td,
+  .th,
+  .table-data {
+    all: unset;
+  } */
+  .th {
+    background-color: lightgray;
+  }
+  .seq {
+    width: 10%;
+  }
+  .col-2 {
+    width: 30%;
+  }
+  section.parties-info {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    gap: 0.5rem;
+  }
+  section.seller,
+  section.buyer {
+    width: 50%;
   }
   /*
   @page:first {

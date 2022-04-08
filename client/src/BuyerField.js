@@ -32,15 +32,15 @@ export default function BuyerField({buyer, setBuyer, placeholder, idx, text, lab
     }
 
     return (
-         <div className='label-input tr'>
-            <label className='noprint' htmlFor={`field-${idx + 1}`}>{label[idx + 1]}:</label>
+         <div className='info tr'>
+            <label className='noprint field-label' htmlFor={`field-${idx + 1}`}>{label[idx + 1]}:</label>
             {text.length ?
                 (<div className='tr'>
-                    <button id={`btn-${idx + 1}`} className='btn-data' onClick={() => update(text)}>{text}</button>
+                    <button id={`buyer-btn-${idx + 1}`} className='field-data' onClick={() => update(text)}>{text.length ? text : null}</button>
                 </div>) :
                 (<div className='tr noprint'>
-                    <input id={`field-${idx + 1}`} name={`field-${idx + 1}`} className='value' ref={fieldRef} onChange={input} type='text' value={alpha} placeholder={placeholder[`${idx + 1}`]} />
-                    <button id={`save-field-${idx + 1}`} className='btn-save' onClick={() => saveInput(idx)} >Save</button>
+                    <input id={`buyer-input-${idx + 1}`} name={`field-${idx + 1}`} className='field-input' ref={fieldRef} onChange={input} type='text' value={alpha.length ? alpha : ''} placeholder={placeholder[`${idx + 1}`]} />
+                    <button id={`save-buyer-input-${idx + 1}`} className='btn-save' onClick={() => saveInput(idx)} >Save</button>
                 </div>
                 )
             }

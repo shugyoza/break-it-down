@@ -4,22 +4,29 @@ import A from './App.css';
 import DateNo from './DateNo';
 import Seller from './Seller';
 import Buyer from './Buyer';
+import Note from './Note';
 
 const LOCAL_STORAGE_KEY_ITEMS = 'itemizeApp.items';
 const LOCAL_STORAGE_KEY_TOTAL = 'itemizeApp.total';
 const LOCAL_STORAGE_KEY_SELLER = 'itemizeApp.seller';
 const LOCAL_STORAGE_KEY_BUYER = 'itemizeApp.buyer';
+const LOCAL_STORAGE_KEY_INV = 'itemizeApp.inv';
+const LOCAL_STORAGE_KEY_NOTE = 'itemizeApp.note';
 
 
 function App(props) {
-  const [items, setItems] = useState([]);
-  const [total, setTotal] = useState(0);
+
+  const [dateNo, setDateNo] = useState(['', '']);
 
   const sellerFields = 6;
   const [seller, setSeller] = useState(new Array(sellerFields).fill(''));
 
   const buyerFields = 6;
   const [buyer, setBuyer] = useState(new Array(buyerFields).fill(''));
+
+  const [items, setItems] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [note, setNote] = useState('');
 
   const containerRef = useRef();
 
@@ -66,6 +73,23 @@ function App(props) {
     localStorage.setItem(LOCAL_STORAGE_KEY_BUYER, JSON.stringify(buyer))
   }, [buyer]);
 
+  useEffect(() => {
+    const storedDateNo = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_INV));
+    if (storedDateNo) setDateNo(storedDateNo);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY_INV, JSON.stringify(dateNo))
+  }, [dateNo]);
+
+  useEffect(() => {
+    const storedNote = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_NOTE));
+    if (storedNote) setNote(storedNote);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY_NOTE, JSON.stringify(note))
+  }, [note]);
 
   function clickClearFields() {
     const newItems = [];
@@ -88,16 +112,43 @@ function App(props) {
     setItems(newItems);
 }
 
+  function toIntX100(nStr) {
+    // convert into a number first
+    let n = nStr * 100;
+    console.log(106, n)
+    // grab the tailing decimal
+    let dec = n % 1;
+    // this if is to anticipate floating point/num problem, e.g. "9.87" => 986.99 => 986 => 9.86
+    if (dec > 0.9) return n - dec + 1;
+    // round the n
+    n = n - dec;
+    console.log(111, n)
+    // return the rounded n
+    return n;
+  }
+
+  const showPennies = (num) => {
+    if (num === 0) return '0';
+    const numStr = num + '';
+    const firstStr = numStr.slice(0, numStr.length - 2);
+    const secondStr = numStr.slice(numStr.length - 2);
+    return `${firstStr}.${secondStr}`;
+}
+
   return (
     <div ref={containerRef} className={'container'}>
       <h1 className='title noprint'>Itemize</h1>
-      <DateNo />
-      <Seller setSeller={setSeller} seller={seller} />
-      <Buyer setBuyer={setBuyer} buyer={buyer} />
-      <ItemList items={items} setItems={setItems} total={total} setTotal={setTotal} deleteItem={deleteItem} clickClearFields={clickClearFields} />
-      <div>The total for {items.length} items is: ${total}</div>
-      <div className='clearFields'><button className='noprint' onClick={clickClearFields}>Clear Fields</button></div>
-      <p className='noprint'>Shugyoza, 2022, on React</p>
+      <h2 id='title'>INVOICE</h2>
+      <DateNo dateNo={dateNo} setDateNo={setDateNo} />
+      <section className='parties-info'>
+        <Seller setSeller={setSeller} seller={seller} />
+        <Buyer setBuyer={setBuyer} buyer={buyer} />
+      </section>
+      <ItemList items={items} setItems={setItems} total={total} setTotal={setTotal} deleteItem={deleteItem} clickClearFields={clickClearFields} toIntX100={toIntX100} showPennies={showPennies} />
+      <div>The total for {items.length} items is: ${showPennies(total)}</div>
+      <div className='clearFields'><button className='noprint btn-delete' onClick={clickClearFields}>Delete ALL Items</button></div>
+      <Note note={note} setNote={setNote} />
+      <p className='noprint footer'>Shugyoza, 2022, on React</p>
     </div>
   );
 }

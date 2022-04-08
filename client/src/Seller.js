@@ -24,9 +24,12 @@ export default function Seller({seller, setSeller}) {
     return (
         <section className='seller'>
             <h2 className='noprint'>
-                Seller
+                From Seller
             </h2>
-            {seller.map((line, idx) => <SellerField key={`seller-line-${idx}`} idx={idx} placeholder={placeholder} label={label} text={line} seller={seller} setSeller={setSeller} />)}
+            <fieldset>
+                <legend>From: </legend>
+                {seller.map((line, idx) => <SellerField key={`seller-line-${idx}`} idx={idx} placeholder={placeholder} label={label} text={line} seller={seller} setSeller={setSeller} />)}
+            </fieldset>
         </section>
     )
 }

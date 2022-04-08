@@ -2,12 +2,28 @@
 
 ## 20220404
 
-Problem: Getting "Uncaught SyntaxError: Unexpected token u in JSON at position 0" when trying to have the state (sender fields)
-stored into localStorage.
-Cause: setSender I called on the Sender component when modifying the field did not have a return, thus returns undefined, which
-cannot be parsed into JSON.
-Solution have the setSender((prevSender) => {RETURN...)
-Note: sender is now seller
+- Problem: Getting "Uncaught SyntaxError: Unexpected token u in JSON at position 0" when trying to have the state (sender fields)
+  stored into localStorage.
+  Cause: setSender I called on the Sender component when modifying the field did not have a return, thus returns undefined, which
+  cannot be parsed into JSON.
+  Solution have the setSender((prevSender) => {RETURN...)
+  Note: sender is now seller
+
+## 20220405
+
+- Getting the cursor autoFocus into the element we preferred.
+  Reference: https://reactgo.com/react-focus-input/
+
+- Resetting CSS styling for specific element: ```
+  #someselector {
+  all: initial;
+  }
+
+#someselector \* {
+all: unset
+}
+
+```Reference: https://stackoverflow.com/questions/15901030/reset-remove-css-styles-for-element-only
 
 # Getting Started with Create React App
 
@@ -79,3 +95,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```

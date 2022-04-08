@@ -2,7 +2,7 @@ import React, {useState, useRef} from 'react';
 
 export default function SellerField({seller, setSeller, placeholder, idx, text, label}) {
 
-    const [editable, setEditable] = useState(true);
+    const [editable, setEditable] = useState(false);
     const [alpha, setAlpha] = useState('');
     const fieldRef = useRef();
 
@@ -17,6 +17,7 @@ export default function SellerField({seller, setSeller, placeholder, idx, text, 
             return newSeller;
         });
         setEditable(false);
+        console.log(e)
         return;
     }
 
@@ -32,14 +33,14 @@ export default function SellerField({seller, setSeller, placeholder, idx, text, 
     }
 
     return (
-         <div className='label-input tr'>
-            <label className='noprint' htmlFor={`field-${idx + 1}`}>{label[idx + 1]}:</label>
-            {text.length ?
+         <div className='info tr'>
+            <label className='noprint field-label' htmlFor={`field-${idx + 1}`}>{label[idx + 1]}:</label>
+            {text.length && !editable ?
                 (<div className='tr'>
-                    <button id={`btn-${idx + 1}`} className='btn-data' onClick={() => update(text)}>{text}</button>
+                    <button id={`btn-${idx + 1}`} className='field-data' onClick={() => update(text)}>{text}</button>
                 </div>) :
                 (<div className='tr noprint'>
-                    <input id={`field-${idx + 1}`} name={`field-${idx + 1}`} className='value' ref={fieldRef} onChange={input} type='text' value={alpha} placeholder={placeholder[`${idx + 1}`]} />
+                    <input id={`field-${idx + 1}`} name={`field-${idx + 1}`} className='field-input' ref={fieldRef} onChange={input} type='text' value={alpha} placeholder={placeholder[`${idx + 1}`]} />
                     <button id={`save-field-${idx + 1}`} className='btn-save' onClick={() => saveInput(idx)} >Save</button>
                 </div>
                 )
