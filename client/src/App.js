@@ -96,6 +96,7 @@ function App(props) {
     const newTotal = 0;
     setItems(newItems);
     setTotal(newTotal);
+    return {items, total};
   }
 
   function deleteItem(e) {
@@ -137,8 +138,8 @@ function App(props) {
 
   return (
     <div ref={containerRef} className={'container'}>
-      <h1 className='title noprint'>Itemize</h1>
-      <h2 id='title'>INVOICE</h2>
+      <h1 data-testid='app-title' className='title noprint'>Itemize</h1>
+      <h2 data-testid='print-title' id='title'>INVOICE</h2>
       <DateNo dateNo={dateNo} setDateNo={setDateNo} />
       <section className='parties-info'>
         <Seller setSeller={setSeller} seller={seller} />
