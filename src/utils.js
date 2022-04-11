@@ -1,3 +1,5 @@
+// This file to store all the functions used for logic
+
 const showPennies = (num) => {
     if (num === 0) return '0';
     const numStr = num + '';
