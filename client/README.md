@@ -14,7 +14,8 @@
 - Getting the cursor autoFocus into the element we preferred.
   Reference: https://reactgo.com/react-focus-input/
 
-- Resetting CSS styling for specific element: ```
+- Resetting CSS styling for specific element:
+```
   #someselector {
   all: initial;
   }
@@ -23,7 +24,12 @@
 all: unset
 }
 
-```Reference: https://stackoverflow.com/questions/15901030/reset-remove-css-styles-for-element-only
+```
+Reference: https://stackoverflow.com/questions/15901030/reset-remove-css-styles-for-element-only
+
+## 20220411
+Creating test cases.
+Reference: https://www.youtube.com/watch?v=GLSSRtnNY0g
 
 # Getting Started with Create React App
 

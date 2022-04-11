@@ -5,6 +5,7 @@ import DateNo from './DateNo';
 import Seller from './Seller';
 import Buyer from './Buyer';
 import Note from './Note';
+import {showPennies} from './utils';
 
 const LOCAL_STORAGE_KEY_ITEMS = 'itemizeApp.items';
 const LOCAL_STORAGE_KEY_TOTAL = 'itemizeApp.total';
@@ -128,14 +129,6 @@ function App(props) {
     return n;
   }
 
-  const showPennies = (num) => {
-    if (num === 0) return '0';
-    const numStr = num + '';
-    const firstStr = numStr.slice(0, numStr.length - 2);
-    const secondStr = numStr.slice(numStr.length - 2);
-    return `${firstStr}.${secondStr}`;
-}
-
   return (
     <div ref={containerRef} className={'container'}>
       <h1 data-testid='app-title' className='title noprint'>Itemize</h1>
@@ -149,7 +142,7 @@ function App(props) {
       <div>The total for {items.length} items is: ${showPennies(total)}</div>
       <div className='clearFields'><button className='noprint btn-delete' onClick={clickClearFields}>Delete ALL Items</button></div>
       <Note note={note} setNote={setNote} />
-      <p className='noprint footer'>Shugyoza, 2022, on React</p>
+      <p className='noprint footer'>Shugyoza, 2022, using JavaScript, Node.js, React, HTML and CSS</p>
     </div>
   );
 }

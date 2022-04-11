@@ -103,7 +103,7 @@ export default function Item(props) {
                 </div>
             </React.Fragment>
         )
-        else return <div className='td col-2'><button className='table-data currency' id={item.id} onClick={showValField}>{showPennies(item.val.text)}</button></div>;
+        else return <div className='td col-2'><button data-testid='item-value' className='table-data currency' id={item.id} onClick={showValField}>{showPennies(item.val.text)}</button></div>;
     }
 
 

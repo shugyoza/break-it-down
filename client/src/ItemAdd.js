@@ -33,8 +33,8 @@ export default function ItemAdd({setItems, setTotal}) {
     return (
     <div className='tr add-item noprint'>
         <div className='td seq noprint'>+</div>
-        <div className='td col-1 noprint'><input className='table-input' ref={itemNameRef} type='text' placeholder='detail' /></div>
-        <div className='td col-2 noprint'><input className='table-input' ref={itemValRef} type='text' placeholder='$ value'/></div>
+        <div className='td col-1 noprint'><input data-testid='input-add-detail' className='table-input' ref={itemNameRef} type='text' placeholder='detail' /></div>
+        <div className='td col-2 noprint'><input data-testid='input-add-value' className='table-input' ref={itemValRef} type='text' placeholder='$ value'/></div>
         <div className='td col-btn noprint'><button className='noprint btn-save' onClick={addItem}>Save</button></div>
     </div>
   )
