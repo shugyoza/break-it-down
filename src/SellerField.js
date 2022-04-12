@@ -17,7 +17,6 @@ export default function SellerField({seller, setSeller, placeholder, idx, text, 
             return newSeller;
         });
         setEditable(false);
-        console.log(e)
         return;
     }
 
