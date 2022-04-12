@@ -85,30 +85,30 @@ export default function DateNo({dateNo, setDateNo}) {
             <h2 className='noprint'>Date + Number</h2>
             <fieldset>
                 <div className='date-row tr'>
-                    <label className='field-label' htmlFor={`inv-date`}>Date: </label>
+                    <label className='field-label' htmlFor={`invoice-date-field`}>Date: </label>
                     {date.length && !editableDate ?
                         (
                             <React.Fragment>
-                                <button onClick={editDate} className='field-data'>{date.length ? date : `${months[m]} ${d}, ${y} `}</button>
+                                <button onClick={editDate} name='invoice-date-field' className='field-data'>{date.length ? date : `${months[m]} ${d}, ${y} `}</button>
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
-                                <input className='field-input' ref={fieldDateRef} onClick={editDate} onChange={inputDate} type='text' value={alphaDate} />
+                                <input className='field-input' name='invoice-date-field' ref={fieldDateRef} onClick={editDate} onChange={inputDate} type='text' value={alphaDate} />
                                 <button className='btn-save noprint' onClick={saveDate} >Save</button>
                             </React.Fragment>
                         )
                     }
                 </div>
                 <div className='num-row tr'>
-                    <label className='field-label' htmlFor={`inv-num`}>Inv.#: </label>
+                    <label className='field-label' htmlFor={`invoice-number-field`}>Inv.#: </label>
                     {num.length && !editableNum ?
                         (
                             <React.Fragment>
-                                <button onClick={editNum} className='field-data'>{num.length ? num : ``}</button>
+                                <button onClick={editNum} name='invoice-number-field' className='field-data'>{num.length ? num : ``}</button>
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
-                                <input className='field-input' ref={fieldNumRef} onClick={editNum} onChange={inputNum} type='text' value={alphaNum} />
+                                <input className='field-input' name='invoice-number-field' ref={fieldNumRef} onClick={editNum} onChange={inputNum} type='text' value={alphaNum} />
                                 <button className='btn-save noprint' onClick={autoNum}>Auto</button>
                                 <button className='btn-save noprint' onClick={saveNum} >Save</button>
                             </React.Fragment>
