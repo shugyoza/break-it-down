@@ -112,6 +112,7 @@ function App(props) {
         }
     }
     setItems(newItems);
+    // if (!newItems.length) setTotal(0);
 }
 
   function toIntX100(nStr) {

@@ -5,24 +5,23 @@ export default function ItemAdd({setItems, setTotal}) {
     const itemNameRef = useRef();
     const itemValRef = useRef();
 
-    // useEffect(() => {
-    //     itemNameRef.current.focus();
-    // }, [])
-
     function addItem(e) {
         const newID = `${Date.now()}`;
         const inputName = itemNameRef.current.value;
         const inputVal = itemValRef.current.value;
         const dollarX100 = Math.floor((inputVal - 0) * 100);
 
-        if (inputName === '' || inputVal === '') return;
+        // if input field(s) are empty, or inputVal is not a number, don't do anything
+        if (inputName === '' || inputVal === '' || isNaN(inputVal - 0)) return;
+        // else update the items
         setItems((prevItems) => [...prevItems, {id: newID, name: {text: inputName, editable: false}, val: {text: dollarX100, editable: false}}]);
-
+        // also update the total
         setTotal((prevTotal) => {
             const prevTotalX100 = Math.floor(prevTotal - 0);
             const newTotalX100 = prevTotalX100 + dollarX100;
             return newTotalX100;
         });
+        // empty all the fields for the next render
         itemNameRef.current.value = itemValRef.current.value = null;
 
         // when addItem clicked, the list render the created additional item, and put the cursor in the referred element
